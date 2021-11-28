@@ -1,12 +1,13 @@
 package com.blp.workshop;
 
 public class Hotel {
+    private static int rating;
     private String name;
     private int regularWeekdayRate;
     private int regularWeekendRate;
     private int rewardsWeekdayRate;
     private int rewardsWeekendRate;
-    private int rating;
+
 
     public Hotel(String name, int regularWeekdayRate, int regularWeekendRate, int rewardsWeekdayRate,
                  int rewardsWeekendRate, int rating)
@@ -59,11 +60,13 @@ public class Hotel {
         this.rewardsWeekendRate = rewardsWeekendRate;
     }
 
-    public int getRating() {
+    public static int getRating() {
         return rating;
     }
 
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+
 }

@@ -3,12 +3,17 @@ package com.blp.workshop;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 public class HotelReservation {
     private List<Hotel> hotels;
@@ -64,20 +69,27 @@ public class HotelReservation {
     {
         LocalDate startDate = toLocalDate(date1);
         LocalDate endDate = toLocalDate(date2);
+        Date startDay = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date endDay = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        DayOfWeek startDay = startDate.getDayOfWeek();
-        DayOfWeek endDay = endDate.getDayOfWeek();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDay);
 
-        long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-        long daysWithoutWeekends = days - 2 * ((days + startDay.getValue()) / 7);
-        int totalWeekDays = (int) daysWithoutWeekends + (startDay == DayOfWeek.SUNDAY ? 1 : 0)
-                + (endDay == DayOfWeek.SUNDAY ? 1 : 0);
-        return totalWeekDays;
+        int weekDays = 0;
+        while (!calendar.getTime().after(endDay)) {
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            if ((dayOfWeek > 1) && (dayOfWeek < 7)) {
+                weekDays++;
+            }
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return weekDays;
     }
 
     public LocalDate toLocalDate(String date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyymmdd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(date, formatter);
         return localDate;
     }
