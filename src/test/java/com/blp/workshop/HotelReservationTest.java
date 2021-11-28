@@ -43,8 +43,9 @@ public class HotelReservationTest {
 
     @Test
     public void whenHotelAddedToSystemRatingShouldGetAdded() // rating to the hotel.
+
     {
-        Hotel hotel1 = new Hotel("Lakeewood", 110, 90, 80, 80, 3);
+        Hotel hotel1 = new Hotel("Lakewood", 110, 90, 80, 80, 3);
         Hotel hotel2 = new Hotel("Bridgewood", 160, 60, 110, 50, 4);
         Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 100, 40, 5);
         HotelReservation hotelReservation = new HotelReservation();
