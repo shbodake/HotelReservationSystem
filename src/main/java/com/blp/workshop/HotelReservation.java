@@ -90,7 +90,7 @@ public class HotelReservation {
     public Map<Hotel, Integer> getCheapestAndBestRatedHotels(String date1, String date2) {
         Map<Hotel, Integer> bestHotels = new HashMap<Hotel, Integer>();
         Map<Integer, Hotel> cheapestHotels = searchFor(date1, date2);
-        int highestRating = (cheapestHotels.keySet().stream().max(Comparator.comparingInt(Hotel::getRating)).get())
+        int highestRating = (cheapestHotels.keySet().stream().max(Comparator.comparingInt(it addHotel::getRating)).get())
                 .getRating();
         cheapestHotels.forEach((k, v) -> {
             if (k.getRating() == highestRating)
